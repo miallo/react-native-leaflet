@@ -11,7 +11,13 @@ import {
   OWN_POSTION_MARKER_ID,
 } from './types';
 import { LatLng } from 'react-leaflet';
-import { NativeSyntheticEvent, Platform, StyleSheet, View } from 'react-native';
+import {
+  NativeSyntheticEvent,
+  Platform,
+  StyleSheet,
+  View,
+  ViewProps,
+} from 'react-native';
 import {
   WebViewError,
   WebViewMessageEvent,
@@ -48,6 +54,7 @@ export type LeafletViewProps = {
   ownPositionMarker?: OwnPositionMarker;
   zoom?: number;
   doDebug?: boolean;
+  style?: ViewProps['style'];
 };
 
 const LeafletView: React.FC<LeafletViewProps> = ({
@@ -63,6 +70,7 @@ const LeafletView: React.FC<LeafletViewProps> = ({
   ownPositionMarker,
   zoom,
   doDebug,
+  style,
 }) => {
   const webViewRef = useRef<WebView>(null);
   const [initialized, setInitialized] = useState(false);
@@ -197,7 +205,7 @@ const LeafletView: React.FC<LeafletViewProps> = ({
   }, [initialized, zoom, sendMessage]);
 
   return (
-    <View style={styles.container}>
+    <View style={style}>
       <WebView
         containerStyle={styles.webview}
         ref={webViewRef}
@@ -219,13 +227,6 @@ const LeafletView: React.FC<LeafletViewProps> = ({
   );
 };
 
-LeafletView.defaultProps = {
-  renderLoading: () => <LoadingIndicator />,
-  mapLayers: DEFAULT_MAP_LAYERS,
-  zoom: DEFAULT_ZOOM,
-  doDebug: __DEV__,
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -235,5 +236,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+LeafletView.defaultProps = {
+  renderLoading: () => <LoadingIndicator />,
+  mapLayers: DEFAULT_MAP_LAYERS,
+  zoom: DEFAULT_ZOOM,
+  doDebug: __DEV__,
+  style: styles.container,
+};
 
 export default LeafletView;

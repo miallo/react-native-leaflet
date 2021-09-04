@@ -51,6 +51,7 @@ import { LatLng, LeafletView } from 'react-native-leaflet';
 | ownPositionMarker   | optional | Marker                          | A special marker that has an ID of OWN_POSTION_MARKER_ID                                                                                                                                                        |  |
 | zoom                | optional | number                          | Desired zoom value of the map                                                                                                                                                                                   |
 | doDebug             | optional | boolean                         | A flag for debug message logging                                                                                                                                                                               |
+| style               | optional | ViewProps['style']              | styling the view. By default it will fill the screen                                                                                                                                                            |
 
 ## Contributing
 
